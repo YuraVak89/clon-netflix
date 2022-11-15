@@ -3,30 +3,32 @@ import Head from "next/head";
 import Banner from "../components/banner/banner";
 import Navbar from "../components/navbar/navbar";
 import SectionCards from "../components/card/section-cards";
-import { getVideos } from "../lib/videos";
+import { getVideos, getPopularVideos } from "../lib/videos";
+import magic from "../lib/magic-client";
 
 export const getServerSideProps = async (searchParams) => {
   const disneyVideos = await getVideos("disney trailer");
   const travelVideos = await getVideos("indie music");
   const productivityVideos = await getVideos("Productivity");
+  const popularVideos = await getPopularVideos();
 
-  return { props: { disneyVideos, travelVideos, productivityVideos } };
+  return { props: { disneyVideos, travelVideos, productivityVideos, popularVideos } };
 };
 
-export default function Home({ disneyVideos, travelVideos, productivityVideos }) {
+export default function Home({ disneyVideos, travelVideos, productivityVideos, popularVideos }) {
   return (
     <div className={styles.container}>
       <Head>
         <title>Netflix</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar userName={"userName"} />
+      <Navbar />
       <Banner title="The best film" subTitle="Forsage" imgUrl="/static/images/forsage.jpg" />
       <div className={styles.sectionWrapper}>
         <SectionCards title="Disney" videos={disneyVideos} size="large" />
         <SectionCards title="Travel" videos={travelVideos} size="small" />
         <SectionCards title="Productivity" videos={productivityVideos} size="medium" />
-        <SectionCards title="Popular" videos={disneyVideos} size="small" />
+        <SectionCards title="Popular" videos={popularVideos} size="small" />
       </div>
     </div>
   );
