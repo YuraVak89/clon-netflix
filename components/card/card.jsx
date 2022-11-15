@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useState } from "react";
 import styles from "./card.module.css";
 import { motion } from "framer-motion";

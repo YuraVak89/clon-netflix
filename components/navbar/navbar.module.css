@@ -66,8 +66,8 @@
   color: var(--white);
 }
 
-.username {
-  font-size: 1rem;
+.userName {
+  font-size: 1.2rem;
 }
 
 .navDropdown {
