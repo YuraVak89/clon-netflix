@@ -23,7 +23,7 @@ export default function Home({ disneyVideos, travelVideos, productivityVideos, p
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <Banner title="The best film" subTitle="Forsage" imgUrl="/static/images/forsage.jpg" />
+      <Banner title="The best film" subTitle="Forsage" imgUrl="/static/images/forsage.jpg" videoId="0-wPm99PF9U" />
       <div className={styles.sectionWrapper}>
         <SectionCards title="Disney" videos={disneyVideos} size="large" />
         <SectionCards title="Travel" videos={travelVideos} size="small" />

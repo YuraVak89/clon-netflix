@@ -5,10 +5,10 @@ import Loading from "../components/loading/loading";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const handleLoggedIn = async () => {
       const isLoggedIn = await magic.user.isLoggedIn();
       if (isLoggedIn) {
@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
       }
     };
     handleLoggedIn();
-  }, []);
+  }, []);*/
 
   useEffect(() => {
     const handleComplete = () => {

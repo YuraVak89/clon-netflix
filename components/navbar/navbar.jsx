@@ -73,7 +73,7 @@ const Navbar = () => {
           <div>
             <button className={styles.usernameBtn} onClick={hsndlerShowDropDown}>
               <p className={styles.userName}>{username}</p>
-              <Image src="/static/images/expand_more.svg" alt="Expand more" width="24" height="24" />
+              <Image src="/static/images/more-red.svg" alt="Expand more" width="24" height="24" color="white"/>
             </button>
             {showDropDown && (
               <div className={styles.navDropdown}>
