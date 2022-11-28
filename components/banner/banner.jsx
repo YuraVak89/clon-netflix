@@ -7,7 +7,6 @@ const Banner = (props) => {
   const router = useRouter();
 
   const playButtonHandler = () => {
-    console.log("all god");
     router.push(`video/${videoId}`);
   };
   return (

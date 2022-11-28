@@ -40,9 +40,22 @@ const SignIn = () => {
           const didToken = await magic.auth.loginWithMagicLink({
             email,
           });
-          console.log({ didToken });
           if (didToken) {
-            router.push("/");
+            const response = await fetch("/api/login", {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${didToken}`,
+                "Content-Type": "application/json",
+              },
+            });
+
+            const loggedInResponse = await response.json();
+            if (loggedInResponse.done) {
+              router.push("/");
+            } else {
+              setIsLoading(false);
+              setUserMsg("Something went wrong logging in");
+            }
           }
         } catch (error) {
           // Handle errors if required!
@@ -68,7 +81,12 @@ const SignIn = () => {
         <div className={styles.headerWrapper}>
           <Link className={styles.logoLink} href="/">
             <div className={styles.logoWrapper}>
-              <Image src="/static/images/Netflix-Logo.png" alt="Netflix logo" width="128" height="34" />
+              <Image
+                src="/static/images/Netflix-Logo.png"
+                alt="Netflix logo"
+                width="128"
+                height="34"
+              />
             </div>
           </Link>
         </div>
