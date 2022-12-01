@@ -51,7 +51,7 @@ const SignIn = () => {
 
             const loggedInResponse = await response.json();
             if (loggedInResponse.done) {
-              router.push("/");
+              return router.push("/");
             } else {
               setIsLoading(false);
               setUserMsg("Something went wrong logging in");

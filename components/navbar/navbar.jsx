@@ -9,13 +9,13 @@ const Navbar = () => {
   const router = useRouter();
   const [showDropDown, setShowDropDown] = useState(false);
   const [username, setUsername] = useState("");
-
+  const [didtoken, seDidToken] = useState("")
   useEffect(() => {
     async function getUsername() {
       try {
         const { email, issuer } = await magic.user.getMetadata();
         const didToken = await magic.user.getIdToken();
-        
+        seDidToken(didToken)
         if (email) {
           setUsername(email);
         }
@@ -30,23 +30,29 @@ const Navbar = () => {
     e.preventDefault();
 
     try {
-      await magic.user.logout();
-      
-      router.push("/signin");
+      const response = await fetch("/api/logout", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${didtoken}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await response.json();
     } catch (error) {
       console.error("Error logging out", error);
-      router.push("/signin");
+      return router.push("/signin");
     }
   };
 
   const handleOnClickHome = (e) => {
     e.preventDefault();
-    router.push("/");
+    return router.push("/");
   };
 
   const handleOnClickMyList = (e) => {
     e.preventDefault();
-    router.push("/browse/my-list");
+    return router.push("/my-list");
   };
 
   const hsndlerShowDropDown = (e) => {
@@ -54,12 +60,21 @@ const Navbar = () => {
     setShowDropDown(!showDropDown);
   };
 
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <a className={styles.logoLink}>
           <div className={styles.logoWrapper}>
-            <Image src="/static/images/Netflix-Logo.png" alt="Netflix-logo" width="128" height="34" />
+            <Link href="/">
+              <Image
+                src="/static/images/Netflix-Logo.png"
+                alt="Netflix-logo"
+                width="128"
+                height="34"
+              />
+            </Link>
           </div>
         </a>
         <ul className={styles.navItems}>
@@ -72,9 +87,18 @@ const Navbar = () => {
         </ul>
         <nav className={styles.navContainer}>
           <div>
-            <button className={styles.usernameBtn} onClick={hsndlerShowDropDown}>
+            <button
+              className={styles.usernameBtn}
+              onClick={hsndlerShowDropDown}
+            >
               <p className={styles.userName}>{username}</p>
-              <Image src="/static/images/more-red.svg" alt="Expand more" width="24" height="24" color="white"/>
+              <Image
+                src="/static/images/more-red.svg"
+                alt="Expand more"
+                width="24"
+                height="24"
+                color="white"
+              />
             </button>
             {showDropDown && (
               <div className={styles.navDropdown}>
